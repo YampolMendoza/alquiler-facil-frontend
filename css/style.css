@@ -1,0 +1,145 @@
+/* RESET BÁSICO */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ESTILOS GENERALES */
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f6f8;
+    color: #333;
+    line-height: 1.6;
+}
+
+/* HEADER */
+header {
+    background-color: #2563eb;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+}
+
+header h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+}
+
+header p {
+    font-size: 1.1rem;
+}
+
+/* CONTENIDO PRINCIPAL */
+main {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+/* TARJETAS */
+.card {
+    background-color: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+}
+
+.card h2 {
+    margin-bottom: 15px;
+    color: #1f2937;
+}
+
+.card p {
+    margin-bottom: 25px;
+    font-size: 0.95rem;
+}
+
+/* BOTONES */
+.btn {
+    display: inline-block;
+    text-decoration: none;
+    background-color: #2563eb;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    font-weight: bold;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn:hover {
+    background-color: #1e40af;
+    transform: scale(1.05);
+}
+
+/* FOOTER */
+footer {
+    text-align: center;
+    padding: 20px;
+    font-size: 0.9rem;
+    color: #666;
+}
+/* GALERÍA DE FOTOS */
+.galeria {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+}
+
+.galeria img {
+    width: 100%;
+    border-radius: 10px;
+    object-fit: cover;
+}
+/* MENSAJES */
+.mensaje {
+    position: fixed;
+    top: 20px;
+    right: -300px;
+    padding: 12px 20px;
+    border-radius: 6px;
+    color: #fff;
+    font-weight: bold;
+    transition: right 0.3s ease;
+    z-index: 999;
+}
+
+.mensaje.mostrar {
+    right: 20px;
+}
+
+.mensaje.success { background: #2ecc71; }
+.mensaje.error { background: #e74c3c; }
+.mensaje.info { background: #3498db; }
+
+/* ANIMACIÓN CARDS */
+.fade-in {
+    animation: fade 0.6s ease forwards;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.sin-resultados {
+    text-align: center;
+    font-size: 18px;
+    color: #777;
+}

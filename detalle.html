@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Detalle del alquiler | Alquiler Fácil Perú</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Detalle del alquiler: fotos, precio, condiciones y ubicación.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2c3e50">
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <h1>Detalle del alquiler</h1>
+        <p>Revisa toda la información antes de contactar</p>
+    </header>
+
+    <!-- CONTENIDO -->
+    <main>
+
+        <!-- INFORMACIÓN PRINCIPAL -->
+        <section class="card">
+            <h2 id="detalle-tipo">Cargando...</h2>
+
+            <p><strong>Precio:</strong> <span id="detalle-precio"></span></p>
+            <p><strong>Distrito:</strong> <span id="detalle-distrito"></span></p>
+            <p><strong>Dirección:</strong> <span id="detalle-direccion"></span></p>
+            <p><strong>Piso:</strong> <span id="detalle-piso"></span></p>
+            <p><strong>Condiciones:</strong> <span id="detalle-condiciones"></span></p>
+        </section>
+
+        <!-- FOTOS -->
+        <section class="card">
+            <h2>Fotos del inmueble</h2>
+
+            <div class="galeria" id="detalle-fotos">
+                <!-- Luego se podrán cargar imágenes reales -->
+                <img src="https://via.placeholder.com/300" alt="Foto del inmueble">
+            </div>
+        </section>
+
+        <!-- UBICACIÓN -->
+        <section class="card">
+            <h2>Ubicación</h2>
+            <p>Puedes ver la ubicación exacta en Google Maps</p>
+
+            <a id="detalle-maps" target="_blank" class="btn">
+                Ver en Google Maps
+            </a>
+        </section>
+
+        <!-- CONTACTO -->
+        <section class="card">
+            <h2>Contacto</h2>
+            <p><strong>Teléfono:</strong> <span id="detalle-telefono"></span></p>
+
+            <a id="detalle-llamar" class="btn">
+                Llamar ahora
+            </a>
+        </section>
+
+    </main>
+
+    <!-- JS -->
+    <script src="js/main.js"></script>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 Alquiler Fácil Perú</p>
+    </footer>
+
+</body>
+</html>

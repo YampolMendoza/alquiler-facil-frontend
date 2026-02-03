@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Publicar alquiler | Alquiler Fácil Perú</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Publica tu alquiler de forma rápida y sencilla en Alquiler Fácil Perú.">
+
+    <link rel="stylesheet" href="css/publicar.css">
+    <link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#2c3e50">
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <h1>Publicar alquiler</h1>
+        <p>Completa la información de tu inmueble</p>
+    </header>
+
+    <!-- CONTENIDO -->
+    <main>
+
+        <section class="card">
+            <form id="form-publicar" autocomplete="off">
+
+                <!-- TIPO DE INMUEBLE -->
+                <label for="tipo">Tipo de inmueble</label>
+                <select id="tipo" name="tipo" required>
+                    <option value="">Selecciona</option>
+                    <option value="Cuarto">Cuarto</option>
+                    <option value="Mini departamento">Mini departamento</option>
+                    <option value="Departamento">Departamento</option>
+                    <option value="Casa">Casa</option>
+                </select>
+
+                <!-- DISTRITO -->
+                <label for="distrito">Distrito</label>
+                <input
+                    id="distrito"
+                    type="text"
+                    name="distrito"
+                    placeholder="Ej: San Juan de Lurigancho"
+                    required
+                >
+
+                <!-- DIRECCIÓN -->
+                <label for="direccion">Dirección</label>
+                <input
+                    id="direccion"
+                    type="text"
+                    name="direccion"
+                    placeholder="Ej: Av. Próceres 123"
+                    required
+                >
+
+                <!-- NIVEL / PISO -->
+                <label for="piso">Nivel / Piso</label>
+                <select id="piso" name="piso" required>
+                    <option value="">Selecciona</option>
+                    <option value="Primer piso">Primer piso</option>
+                    <option value="Segundo piso">Segundo piso</option>
+                    <option value="Tercer piso">Tercer piso</option>
+                    <option value="Cuarto piso o más">Cuarto piso o más</option>
+                </select>
+
+                <!-- PRECIO -->
+                <label for="precio">Precio mensual (S/)</label>
+                <input
+                    id="precio"
+                    type="number"
+                    name="precio"
+                    placeholder="Ej: 600"
+                    min="1"
+                    required
+                >
+
+                <!-- CONDICIONES -->
+                <label for="condiciones">Condiciones</label>
+                <textarea
+                    id="condiciones"
+                    name="condiciones"
+                    placeholder="Ej: 1 mes de adelanto, no mascotas"
+                    rows="3"
+                ></textarea>
+
+                <!-- FOTOS (MVP) -->
+                <label>Fotos del inmueble</label>
+                <input type="file" multiple disabled>
+                <small class="hint">(Próximamente)</small>
+
+                <!-- CONTACTO -->
+                <label for="telefono">Teléfono de contacto</label>
+                <input
+                    id="telefono"
+                    type="tel"
+                    name="telefono"
+                    placeholder="Ej: 987654321"
+                    pattern="[0-9]{9}"
+                    required
+                >
+
+                <!-- BOTÓN -->
+                <button type="submit" class="btn">
+                    Publicar alquiler
+                </button>
+
+            </form>
+        </section>
+
+    </main>
+
+    <!-- JS -->
+    <script src="js/main.js"></script>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 Alquiler Fácil Perú</p>
+    </footer>
+
+</body>
+</html>

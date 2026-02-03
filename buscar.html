@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Buscar alquiler | Alquiler Fácil Perú</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Busca alquileres por distrito, precio y tipo de inmueble.">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#2c3e50">
+
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <h1>Buscar alquiler</h1>
+        <p>Encuentra el lugar ideal para vivir</p>
+    </header>
+
+    <!-- CONTENIDO -->
+    <main>
+
+        <!-- FILTROS DE BÚSQUEDA -->
+        <section class="card">
+            <form id="form-buscar">
+
+                <label>Distrito</label>
+                <input type="text" name="distrito" placeholder="Ej: Comas, Los Olivos, SMP">
+
+                <label>Tipo de inmueble</label>
+                <select name="tipo">
+                    <option value="">Todos</option>
+                    <option value="Cuarto">Cuarto</option>
+                    <option value="Mini departamento">Mini departamento</option>
+                    <option value="Departamento">Departamento</option>
+                    <option value="Casa">Casa</option>
+                </select>
+
+                <label>Precio máximo (S/)</label>
+                <input type="number" name="precio" placeholder="Ej: 800">
+
+                <button type="submit" class="btn">Buscar</button>
+
+            </form>
+        </section>
+
+        <!-- RESULTADOS -->
+        <section>
+            <h2 style="margin-bottom: 20px;">Resultados</h2>
+
+            <!-- AQUÍ EL JS INSERTA LOS RESULTADOS -->
+            <div id="resultados"></div>
+        </section>
+
+    </main>
+
+    <!-- JS AL FINAL (MUY IMPORTANTE) -->
+    <script src="js/main.js"></script>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2026 Alquiler Fácil Perú</p>
+    </footer>
+
+</body>
+</html>
