@@ -143,3 +143,27 @@ footer {
     font-size: 18px;
     color: #777;
 }
+/* GRID DE ALQUILERES */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+/* CARD ALQUILER */
+.card h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #2563eb;
+}
+
+.card p {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    text-align: left;
+}
+
+.card .btn {
+    margin-top: 15px;
+    width: 100%;
+    text-align: center;
+}
