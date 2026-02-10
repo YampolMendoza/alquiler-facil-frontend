@@ -109,3 +109,59 @@ if (formBuscar) {
     cargarAlquileres(params);
   });
 }
+/* ======================
+   BUSCAR ALQUILERES
+====================== */
+const formBuscar = document.getElementById("form-buscar");
+const resultados = document.getElementById("resultados");
+
+if (formBuscar) {
+  formBuscar.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const distrito = document.getElementById("buscar-distrito").value;
+    const tipo = document.getElementById("buscar-tipo").value;
+    const minPrecio = document.getElementById("precio-min").value;
+    const maxPrecio = document.getElementById("precio-max").value;
+
+    const params = new URLSearchParams();
+
+    if (distrito) params.append("distrito", distrito);
+    if (tipo) params.append("tipo", tipo);
+    if (minPrecio) params.append("minPrecio", minPrecio);
+    if (maxPrecio) params.append("maxPrecio", maxPrecio);
+
+    try {
+      const res = await fetch(`${API_URL}/alquileres?${params.toString()}`);
+      const data = await res.json();
+
+      resultados.innerHTML = "";
+
+      if (data.length === 0) {
+        resultados.innerHTML = "<p class='sin-resultados'>No se encontraron resultados</p>";
+        return;
+      }
+
+      data.forEach(a => {
+        const card = document.createElement("div");
+        card.className = "card fade-in";
+
+        card.innerHTML = `
+          <h3>${a.tipo}</h3>
+          <p><strong>Distrito:</strong> ${a.distrito}</p>
+          <p><strong>Dirección:</strong> ${a.direccion}</p>
+          <p><strong>Piso:</strong> ${a.piso}</p>
+          <p><strong>Precio:</strong> S/ ${a.precio}</p>
+          <p><strong>Condiciones:</strong> ${a.condiciones || "-"}</p>
+          <a class="btn" href="tel:${a.telefono}">Contactar 📞</a>
+        `;
+
+        resultados.appendChild(card);
+      });
+
+    } catch (err) {
+      console.error(err);
+      resultados.innerHTML = "<p>Error al buscar alquileres</p>";
+    }
+  });
+}
