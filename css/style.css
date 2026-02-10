@@ -167,3 +167,19 @@ footer {
     width: 100%;
     text-align: center;
 }
+.filtros {
+  display: grid;
+  gap: 15px;
+}
+
+.filtros div {
+  display: flex;
+  flex-direction: column;
+}
+
+.filtros input,
+.filtros select {
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
