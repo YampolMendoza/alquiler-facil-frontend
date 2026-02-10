@@ -1,8 +1,8 @@
 const API_URL = "https://alquiler-facil-backendd.onrender.com";
 
-/* =========================
+/* ======================
    PUBLICAR ALQUILER
-========================= */
+====================== */
 const form = document.getElementById("form-publicar");
 
 if (form) {
@@ -22,59 +22,62 @@ if (form) {
     try {
       const res = await fetch(`${API_URL}/alquileres`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
       });
 
-      const result = await res.json();
-
-      if (!res.ok) {
-        throw new Error(result.error || "Error al publicar");
-      }
+      if (!res.ok) throw new Error("Error al publicar");
 
       alert("✅ Alquiler publicado correctamente");
       form.reset();
-    } catch (error) {
-      console.error(error);
-      alert("❌ Error al publicar el alquiler");
+
+    } catch (err) {
+      alert("❌ Error al publicar alquiler");
+      console.error(err);
     }
   });
 }
 
-/* =========================
-   MOSTRAR ALQUILERES
-========================= */
-async function cargarAlquileres() {
-  const contenedor = document.getElementById("lista-alquileres");
-  if (!contenedor) return;
+/* ======================
+   LISTAR ALQUILERES
+====================== */
+const lista = document.getElementById("lista-alquileres");
 
+if (lista) {
+  cargarAlquileres();
+}
+
+async function cargarAlquileres() {
   try {
     const res = await fetch(`${API_URL}/alquileres`);
     const alquileres = await res.json();
 
-    contenedor.innerHTML = "";
+    lista.innerHTML = "";
 
-    alquileres.forEach((a) => {
-      contenedor.innerHTML += `
-        <article class="card">
-          <h3>${a.tipo}</h3>
-          <p><strong>Distrito:</strong> ${a.distrito}</p>
-          <p><strong>Dirección:</strong> ${a.direccion}</p>
-          <p><strong>Piso:</strong> ${a.piso}</p>
-          <p><strong>Precio:</strong> S/ ${a.precio}</p>
-          <p><strong>Condiciones:</strong> ${a.condiciones || "-"}</p>
-          <a href="https://wa.me/51${a.telefono}" target="_blank" class="btn">
-            Contactar 📲
-          </a>
-        </article>
+    if (alquileres.length === 0) {
+      lista.innerHTML = "<p class='sin-resultados'>No hay alquileres publicados</p>";
+      return;
+    }
+
+    alquileres.forEach(a => {
+      const card = document.createElement("div");
+      card.className = "card fade-in";
+
+      card.innerHTML = `
+        <h3>${a.tipo}</h3>
+        <p><strong>Distrito:</strong> ${a.distrito}</p>
+        <p><strong>Dirección:</strong> ${a.direccion}</p>
+        <p><strong>Piso:</strong> ${a.piso}</p>
+        <p><strong>Precio:</strong> S/ ${a.precio}</p>
+        <p><strong>Condiciones:</strong> ${a.condiciones || "-"}</p>
+        <a class="btn" href="tel:${a.telefono}">Contactar 📞</a>
       `;
+
+      lista.appendChild(card);
     });
-  } catch (error) {
-    console.error(error);
-    contenedor.innerHTML = "<p>Error cargando alquileres</p>";
+
+  } catch (err) {
+    console.error(err);
+    lista.innerHTML = "<p>Error al cargar alquileres</p>";
   }
 }
-
-document.addEventListener("DOMContentLoaded", cargarAlquileres);
