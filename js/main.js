@@ -3,10 +3,10 @@ const API_URL = "https://alquiler-facil-backendd.onrender.com";
 /* ======================
    PUBLICAR ALQUILER
 ====================== */
-const form = document.getElementById("form-publicar");
+const formPublicar = document.getElementById("form-publicar");
 
-if (form) {
-  form.addEventListener("submit", async (e) => {
+if (formPublicar) {
+  formPublicar.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const data = {
@@ -29,7 +29,7 @@ if (form) {
       if (!res.ok) throw new Error("Error al publicar");
 
       alert("✅ Alquiler publicado correctamente");
-      form.reset();
+      formPublicar.reset();
 
     } catch (err) {
       alert("❌ Error al publicar alquiler");
@@ -39,23 +39,23 @@ if (form) {
 }
 
 /* ======================
-   LISTAR ALQUILERES
+   LISTAR / BUSCAR ALQUILERES
 ====================== */
 const lista = document.getElementById("lista-alquileres");
+const formBuscar = document.getElementById("form-buscar");
 
-if (lista) {
-  cargarAlquileres();
-}
+// FUNCIÓN PRINCIPAL
+async function cargarAlquileres(params = "") {
+  if (!lista) return;
 
-async function cargarAlquileres() {
   try {
-    const res = await fetch(`${API_URL}/alquileres`);
+    const res = await fetch(`${API_URL}/alquileres${params}`);
     const alquileres = await res.json();
 
     lista.innerHTML = "";
 
     if (alquileres.length === 0) {
-      lista.innerHTML = "<p class='sin-resultados'>No hay alquileres publicados</p>";
+      lista.innerHTML = "<p class='sin-resultados'>No se encontraron resultados</p>";
       return;
     }
 
@@ -80,4 +80,32 @@ async function cargarAlquileres() {
     console.error(err);
     lista.innerHTML = "<p>Error al cargar alquileres</p>";
   }
+}
+
+// CARGAR TODOS AL ENTRAR (index.html y buscar.html)
+if (lista) {
+  cargarAlquileres();
+}
+
+/* ======================
+   FILTROS DE BÚSQUEDA
+====================== */
+if (formBuscar) {
+  formBuscar.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const distrito = document.getElementById("filtro-distrito")?.value || "";
+    const tipo = document.getElementById("filtro-tipo")?.value || "";
+    const min = document.getElementById("precio-min")?.value || "";
+    const max = document.getElementById("precio-max")?.value || "";
+
+    let params = "?";
+
+    if (distrito) params += `distrito=${encodeURIComponent(distrito)}&`;
+    if (tipo) params += `tipo=${encodeURIComponent(tipo)}&`;
+    if (min) params += `minPrecio=${min}&`;
+    if (max) params += `maxPrecio=${max}&`;
+
+    cargarAlquileres(params);
+  });
 }

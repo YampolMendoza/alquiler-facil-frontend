@@ -25,26 +25,32 @@
 
         <!-- FILTROS (VISUALES, luego los activamos) -->
         <section class="card">
-            <form id="form-buscar">
+            <form id="form-buscar" class="card">
 
-                <label>Distrito</label>
-                <input type="text" placeholder="Ej: Comas, Los Olivos">
+  <label>Distrito</label>
+  <input id="filtro-distrito" type="text" placeholder="Ej: Los Olivos">
 
-                <label>Tipo de inmueble</label>
-                <select>
-                    <option value="">Todos</option>
-                    <option value="Cuarto">Cuarto</option>
-                    <option value="Mini departamento">Mini departamento</option>
-                    <option value="Departamento">Departamento</option>
-                    <option value="Casa">Casa</option>
-                </select>
+  <label>Tipo de inmueble</label>
+  <select id="filtro-tipo">
+    <option value="">Todos</option>
+    <option value="Cuarto">Cuarto</option>
+    <option value="Mini departamento">Mini departamento</option>
+    <option value="Departamento">Departamento</option>
+    <option value="Casa">Casa</option>
+  </select>
 
-                <label>Precio máximo (S/)</label>
-                <input type="number" placeholder="Ej: 800">
+  <label>Precio mínimo (S/)</label>
+  <input id="precio-min" type="number" placeholder="Ej: 300">
 
-                <button type="submit" class="btn">Buscar</button>
+  <label>Precio máximo (S/)</label>
+  <input id="precio-max" type="number" placeholder="Ej: 900">
 
-            </form>
+  <button type="submit" class="btn">Buscar</button>
+
+</form>
+
+<section id="lista-alquileres" class="grid"></section>
+
         </section>
 
         <!-- RESULTADOS -->
