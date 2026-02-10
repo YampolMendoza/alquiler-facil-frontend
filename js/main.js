@@ -10,13 +10,13 @@ if (formPublicar) {
     e.preventDefault();
 
     const data = {
-      tipo: document.getElementById("tipo").value,
-      distrito: document.getElementById("distrito").value,
-      direccion: document.getElementById("direccion").value,
-      piso: document.getElementById("piso").value,
-      precio: document.getElementById("precio").value,
-      condiciones: document.getElementById("condiciones").value,
-      telefono: document.getElementById("telefono").value
+      tipo: tipo.value,
+      distrito: distrito.value,
+      direccion: direccion.value,
+      piso: piso.value,
+      precio: precio.value,
+      condiciones: condiciones.value,
+      telefono: telefono.value
     };
 
     try {
@@ -26,7 +26,7 @@ if (formPublicar) {
         body: JSON.stringify(data)
       });
 
-      if (!res.ok) throw new Error("Error al publicar");
+      if (!res.ok) throw new Error();
 
       alert("✅ Alquiler publicado correctamente");
       formPublicar.reset();
@@ -39,41 +39,38 @@ if (formPublicar) {
 }
 
 /* ======================
-   LISTAR / BUSCAR ALQUILERES
+   LISTAR ALQUILERES (INDEX)
 ====================== */
 const lista = document.getElementById("lista-alquileres");
-const formBuscar = document.getElementById("form-buscar");
 
-// FUNCIÓN PRINCIPAL
-async function cargarAlquileres(params = "") {
-  if (!lista) return;
+if (lista) {
+  cargarAlquileres();
+}
 
+async function cargarAlquileres(query = "") {
   try {
-    const res = await fetch(`${API_URL}/alquileres${params}`);
-    const alquileres = await res.json();
+    const res = await fetch(`${API_URL}/alquileres${query}`);
+    const data = await res.json();
 
     lista.innerHTML = "";
 
-    if (alquileres.length === 0) {
-      lista.innerHTML = "<p class='sin-resultados'>No se encontraron resultados</p>";
+    if (data.length === 0) {
+      lista.innerHTML = "<p class='sin-resultados'>No hay alquileres</p>";
       return;
     }
 
-    alquileres.forEach(a => {
-      const card = document.createElement("div");
-      card.className = "card fade-in";
-
-      card.innerHTML = `
-        <h3>${a.tipo}</h3>
-        <p><strong>Distrito:</strong> ${a.distrito}</p>
-        <p><strong>Dirección:</strong> ${a.direccion}</p>
-        <p><strong>Piso:</strong> ${a.piso}</p>
-        <p><strong>Precio:</strong> S/ ${a.precio}</p>
-        <p><strong>Condiciones:</strong> ${a.condiciones || "-"}</p>
-        <a class="btn" href="tel:${a.telefono}">Contactar 📞</a>
+    data.forEach(a => {
+      lista.innerHTML += `
+        <div class="card fade-in">
+          <h3>${a.tipo}</h3>
+          <p><strong>Distrito:</strong> ${a.distrito}</p>
+          <p><strong>Dirección:</strong> ${a.direccion}</p>
+          <p><strong>Piso:</strong> ${a.piso}</p>
+          <p><strong>Precio:</strong> S/ ${a.precio}</p>
+          <p><strong>Condiciones:</strong> ${a.condiciones || "-"}</p>
+          <a class="btn" href="tel:${a.telefono}">Contactar 📞</a>
+        </div>
       `;
-
-      lista.appendChild(card);
     });
 
   } catch (err) {
@@ -82,35 +79,8 @@ async function cargarAlquileres(params = "") {
   }
 }
 
-// CARGAR TODOS AL ENTRAR (index.html y buscar.html)
-if (lista) {
-  cargarAlquileres();
-}
-
 /* ======================
-   FILTROS DE BÚSQUEDA
-====================== */
-if (formBuscar) {
-  formBuscar.addEventListener("submit", (e) => {
-    e.preventDefault();
-
-    const distrito = document.getElementById("filtro-distrito")?.value || "";
-    const tipo = document.getElementById("filtro-tipo")?.value || "";
-    const min = document.getElementById("precio-min")?.value || "";
-    const max = document.getElementById("precio-max")?.value || "";
-
-    let params = "?";
-
-    if (distrito) params += `distrito=${encodeURIComponent(distrito)}&`;
-    if (tipo) params += `tipo=${encodeURIComponent(tipo)}&`;
-    if (min) params += `minPrecio=${min}&`;
-    if (max) params += `maxPrecio=${max}&`;
-
-    cargarAlquileres(params);
-  });
-}
-/* ======================
-   BUSCAR ALQUILERES
+   BUSCAR ALQUILERES (BUSCAR.HTML)
 ====================== */
 const formBuscar = document.getElementById("form-buscar");
 const resultados = document.getElementById("resultados");
@@ -121,15 +91,15 @@ if (formBuscar) {
 
     const distrito = document.getElementById("buscar-distrito").value;
     const tipo = document.getElementById("buscar-tipo").value;
-    const minPrecio = document.getElementById("precio-min").value;
-    const maxPrecio = document.getElementById("precio-max").value;
+    const min = document.getElementById("precio-min").value;
+    const max = document.getElementById("precio-max").value;
 
     const params = new URLSearchParams();
 
     if (distrito) params.append("distrito", distrito);
     if (tipo) params.append("tipo", tipo);
-    if (minPrecio) params.append("minPrecio", minPrecio);
-    if (maxPrecio) params.append("maxPrecio", maxPrecio);
+    if (min) params.append("minPrecio", min);
+    if (max) params.append("maxPrecio", max);
 
     try {
       const res = await fetch(`${API_URL}/alquileres?${params.toString()}`);
@@ -143,20 +113,17 @@ if (formBuscar) {
       }
 
       data.forEach(a => {
-        const card = document.createElement("div");
-        card.className = "card fade-in";
-
-        card.innerHTML = `
-          <h3>${a.tipo}</h3>
-          <p><strong>Distrito:</strong> ${a.distrito}</p>
-          <p><strong>Dirección:</strong> ${a.direccion}</p>
-          <p><strong>Piso:</strong> ${a.piso}</p>
-          <p><strong>Precio:</strong> S/ ${a.precio}</p>
-          <p><strong>Condiciones:</strong> ${a.condiciones || "-"}</p>
-          <a class="btn" href="tel:${a.telefono}">Contactar 📞</a>
+        resultados.innerHTML += `
+          <div class="card fade-in">
+            <h3>${a.tipo}</h3>
+            <p><strong>Distrito:</strong> ${a.distrito}</p>
+            <p><strong>Dirección:</strong> ${a.direccion}</p>
+            <p><strong>Piso:</strong> ${a.piso}</p>
+            <p><strong>Precio:</strong> S/ ${a.precio}</p>
+            <p><strong>Condiciones:</strong> ${a.condiciones || "-"}</p>
+            <a class="btn" href="tel:${a.telefono}">Contactar 📞</a>
+          </div>
         `;
-
-        resultados.appendChild(card);
       });
 
     } catch (err) {
